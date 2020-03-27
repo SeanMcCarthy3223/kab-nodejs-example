@@ -4,7 +4,7 @@ podTemplate(cloud: 'openshift', serviceAccount: 'kabanero-pipeline', containers:
                                 envVar(key: 'IMAGENAME', value: 'kab-nodejs-example'),
                                envVar(key: 'PROJECT', value: 'dev-smc')])
   ]){
-    node('\'$POD_LABEL\'') {
+    node('$POD_LABEL') {
         stage('Deploy') {
             container('kubectl') {
                 checkout scm
