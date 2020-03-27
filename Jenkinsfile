@@ -1,10 +1,10 @@
-podTemplate(label: 'label', cloud: 'openshift', serviceAccount: 'kabanero-pipeline', containers: [
+podTemplate(cloud: 'openshift', serviceAccount: 'kabanero-pipeline', containers: [
     containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl', ttyEnabled: true, command: 'cat',
                       envVars: [ envVar(key: 'TAG', value: 'latest'),
                                 envVar(key: 'IMAGENAME', value: 'kab-nodejs-example'),
                                envVar(key: 'PROJECT', value: 'dev-smc')])
   ]){
-    node('label') {
+    node('\'$POD_LABEL\'') {
         stage('Deploy') {
             container('kubectl') {
                 checkout scm
